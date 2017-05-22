@@ -1,28 +1,27 @@
 package pl.KarolGrabowski;
 
-import pl.KarolGrabowski.Exceptions.NullCustomerEcxeption;
-
+import pl.KarolGrabowski.Exceptions.NullCustomerException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MovieRental {
-    //</editor-fold>
     private List<Customer> customers;
     private List<Rent> rents;
     private List<Movie> movies;
 
     public MovieRental() {
-        this.customers = new ArrayList<Customer>();
-        this.movies = new ArrayList<Movie>();
-        this.rents = new ArrayList<Rent>();
+        this.customers = new ArrayList<>();
+        this.rents = new ArrayList<>();
+        this.movies = new ArrayList<>();
     }
 
-    public void addCustomer(Customer customer) throws NullCustomerEcxeption {
+    public void addCustomer(Customer customer) throws NullCustomerException {
         if (customer == null) {
-            throw new NullCustomerEcxeption();
+            throw new NullCustomerException();
         }
-            customers.add(customer);
 
+        customers.add(customer);
     }
 
     public List<Customer> getCustomers() {
