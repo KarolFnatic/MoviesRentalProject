@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MoviesRentalProject.iml" filepath="$PROJECT_DIR$/MoviesRentalProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/movierentalcore/movierentalcore.iml" filepath="$PROJECT_DIR$/movierentalcore/movierentalcore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/movierentalgui/movierentalgui.iml" filepath="$PROJECT_DIR$/movierentalgui/movierentalgui.iml" />
     </modules>
   </component>
 </project>
