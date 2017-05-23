@@ -1,6 +1,9 @@
 package pl.KarolGrabowski;
 
+import pl.KarolGrabowski.Exceptions.MovieAlreadyExistException;
 import pl.KarolGrabowski.Exceptions.NullCustomerException;
+import pl.KarolGrabowski.Exceptions.NullMovieExceptions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +23,22 @@ public class MovieRental {
         if (customer == null) {
             throw new NullCustomerException();
         }
-
         customers.add(customer);
+    }
+
+    public void addMovie(Movie movie) throws NullMovieExceptions, MovieAlreadyExistException {
+        if (movie == null) {
+            throw new NullMovieExceptions();
+        }
+        if (movies.contains(movie)){
+            throw new MovieAlreadyExistException();
+        }
+        movies.add(movie);
+    }
+
+    public void addRent(Rent rent){
+        // TODO handle errors
+        rents.add(rent);
     }
 
     public List<Customer> getCustomers() {

@@ -1,13 +1,36 @@
 package pl.KarolGrabowski;
 
 import org.junit.Test;
+import pl.KarolGrabowski.Exceptions.MovieAlreadyExistException;
 import pl.KarolGrabowski.Exceptions.NullCustomerException;
+import pl.KarolGrabowski.Exceptions.NullMovieExceptions;
 
 import java.util.Date;
 
 import static org.junit.Assert.*;
 
 public class MovieRentalTest {
+    @Test
+    public void addMovie_NullMovie() throws Exception {
+        //given
+        MovieRental movieRental = new MovieRental();
+        Movie movie = null;
+        //when
+        movieRental.addMovie(movie);
+        //then
+    }
+    @Test
+    public void addMovie_CorrectCase() throws NullMovieExceptions, MovieAlreadyExistException {
+        //given
+        MovieRental movieRental = new MovieRental();
+        Movie movie = new Movie("Action", "Terminator", "bla");
+        //when
+        movieRental.addMovie(movie);
+        //then
+        assertEquals(1,movieRental.getMovies().size());
+        assertTrue(movieRental.getMovies().contains(movie));
+    }
+
     @Test
     public void addCustomer_CorrectCase() throws NullCustomerException {
         //given
@@ -27,6 +50,16 @@ public class MovieRentalTest {
         //when
         movieRental.addCustomer(customer);
         //then
+    }
+    @Test(expected = MovieAlreadyExistException.class)
+    public void addMovie_duplicate() throws NullMovieExceptions, MovieAlreadyExistException {
+        // given
+        MovieRental movieRental = new MovieRental();
+        Movie movie = new Movie("Action", "Terminator", "bla");
+
+        // when
+        movieRental.addMovie(movie);
+        movieRental.addMovie(movie);
     }
 
 }
