@@ -74,5 +74,11 @@ public class MovieRental {
         for (Rent rent : rents) {
             System.out.println(rent);
         }
+        System.out.println("============================");
     }
+
+    public void saveCustomersToFile(){
+        DataFileWriter.writeObjectToFile("customers.csv", customers);
+    }
+
 }

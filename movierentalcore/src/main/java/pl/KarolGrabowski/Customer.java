@@ -1,9 +1,10 @@
 package pl.KarolGrabowski;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Customer {
+public class Customer implements CsvObject {
     public static final String CSV_SEPARATOR = ",";
     public static final String DATE_PATTERN = "yyyy-MM-dd";
     private static int nextId = 0;
@@ -14,6 +15,17 @@ public class Customer {
     private String lastName;
     private String city;
     private Date date;
+
+    public Customer(String pesel, String firstName, String lastName, String city, Date date) {
+        id = nextId;
+        nextId++;
+
+        this.date = date;
+        this.pesel = pesel;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+    }
 
     // "0,123123213,Adam,Kowalski,Wrocław,2015-01-02"
     public Customer(String text) throws ParseException {
@@ -28,17 +40,6 @@ public class Customer {
         String dateString = split[5];
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         this.date = simpleDateFormat.parse(dateString);
-    }
-
-    public Customer(String pesel, String firstName, String lastName, String city, Date date) {
-        id = nextId;
-        nextId++;
-
-        this.date = date;
-        this.pesel = pesel;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
     }
 
     public String toCSVString() {

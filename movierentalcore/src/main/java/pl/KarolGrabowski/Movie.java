@@ -1,14 +1,29 @@
 package pl.KarolGrabowski;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by jakubwrabel on 19/05/2017.
  */
-public class Movie {
+public class Movie implements CsvObject {
+    public static final String CSV_SEPARATOR = ",";
     private static int nextId = 0;
     private int id;
     private String title;
     private String genre;
     private String description;
+
+    // "0,Terminator,Action,abc"
+    public Movie(String text) throws ParseException {
+        String[] split = text.split(CSV_SEPARATOR);
+
+        this.id = Integer.parseInt(split[0]);
+        this.title = split[1];
+        this.genre = split[2];
+        this.description = split[3];
+    }
+
 
     public Movie(String title, String genre, String description) {
         id = nextId;
@@ -16,6 +31,19 @@ public class Movie {
         this.title = title;
         this.genre = genre;
         this.description = description;
+    }
+
+    public String toCSVString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id);
+        stringBuilder.append(CSV_SEPARATOR);
+        stringBuilder.append(title);
+        stringBuilder.append(CSV_SEPARATOR);
+        stringBuilder.append(genre);
+        stringBuilder.append(CSV_SEPARATOR);
+        stringBuilder.append(description);
+
+        return stringBuilder.toString();
     }
 
     @Override

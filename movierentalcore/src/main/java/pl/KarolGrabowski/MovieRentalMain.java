@@ -16,5 +16,7 @@ public class MovieRentalMain {
         movieRental.addMovie(new Movie("Transformers", "SciFi","bla"));
 
         movieRental.printAllData();
+
+        movieRental.saveCustomersToFile();
     }
 }
