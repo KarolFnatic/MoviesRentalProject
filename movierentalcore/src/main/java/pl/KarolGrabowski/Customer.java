@@ -1,12 +1,8 @@
 package pl.KarolGrabowski;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by jakubwrabel on 19/05/2017.
- */
 public class Customer {
     public static final String CSV_SEPARATOR = ",";
     public static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -63,6 +59,18 @@ public class Customer {
         stringBuilder.append(formattedDate);
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", pesel='" + pesel + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", city='" + city + '\'' +
+                ", date=" + date +
+                '}';
     }
 
     public Date getDate() {

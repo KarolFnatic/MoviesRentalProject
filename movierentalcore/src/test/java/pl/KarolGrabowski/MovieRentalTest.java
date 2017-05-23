@@ -1,9 +1,9 @@
 package pl.KarolGrabowski;
 
 import org.junit.Test;
-import pl.KarolGrabowski.Exceptions.MovieAlreadyExistException;
+import pl.KarolGrabowski.Exceptions.MovieAlreadyExistsException;
 import pl.KarolGrabowski.Exceptions.NullCustomerException;
-import pl.KarolGrabowski.Exceptions.NullMovieExceptions;
+import pl.KarolGrabowski.Exceptions.NullMovieException;
 
 import java.util.Date;
 
@@ -20,7 +20,7 @@ public class MovieRentalTest {
         //then
     }
     @Test
-    public void addMovie_CorrectCase() throws NullMovieExceptions, MovieAlreadyExistException {
+    public void addMovie_CorrectCase() throws NullMovieException, MovieAlreadyExistsException {
         //given
         MovieRental movieRental = new MovieRental();
         Movie movie = new Movie("Action", "Terminator", "bla");
@@ -51,8 +51,8 @@ public class MovieRentalTest {
         movieRental.addCustomer(customer);
         //then
     }
-    @Test(expected = MovieAlreadyExistException.class)
-    public void addMovie_duplicate() throws NullMovieExceptions, MovieAlreadyExistException {
+    @Test(expected = MovieAlreadyExistsException.class)
+    public void addMovie_duplicate() throws NullMovieException, MovieAlreadyExistsException {
         // given
         MovieRental movieRental = new MovieRental();
         Movie movie = new Movie("Action", "Terminator", "bla");

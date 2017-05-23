@@ -1,5 +1,8 @@
 package pl.KarolGrabowski;
 
+/**
+ * Created by jakubwrabel on 19/05/2017.
+ */
 public class Movie {
     private static int nextId = 0;
     private int id;
@@ -13,6 +16,16 @@ public class Movie {
         this.title = title;
         this.genre = genre;
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 
     public int getId() {

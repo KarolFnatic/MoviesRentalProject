@@ -1,13 +1,16 @@
 package pl.KarolGrabowski;
 
-import pl.KarolGrabowski.Exceptions.MovieAlreadyExistException;
+
+import pl.KarolGrabowski.Exceptions.MovieAlreadyExistsException;
 import pl.KarolGrabowski.Exceptions.NullCustomerException;
-import pl.KarolGrabowski.Exceptions.NullMovieExceptions;
+import pl.KarolGrabowski.Exceptions.NullMovieException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Created by jakubwrabel on 22/05/2017.
+ */
 public class MovieRental {
     private List<Customer> customers;
     private List<Rent> rents;
@@ -23,16 +26,19 @@ public class MovieRental {
         if (customer == null) {
             throw new NullCustomerException();
         }
+
         customers.add(customer);
     }
 
-    public void addMovie(Movie movie) throws NullMovieExceptions, MovieAlreadyExistException {
+    public void addMovie(Movie movie) throws NullMovieException, MovieAlreadyExistsException {
         if (movie == null) {
-            throw new NullMovieExceptions();
+            throw new NullMovieException();
         }
-        if (movies.contains(movie)){
-            throw new MovieAlreadyExistException();
+
+        if(movies.contains(movie)){
+            throw new MovieAlreadyExistsException();
         }
+
         movies.add(movie);
     }
 
@@ -51,5 +57,22 @@ public class MovieRental {
 
     public List<Movie> getMovies() {
         return movies;
+    }
+
+    public void printAllData(){
+        System.out.println("--- CUSTOMERS ---");
+        for (Customer customer : customers) {
+            System.out.println(customer);
+        }
+
+        System.out.println("--- MOVIES ---");
+        for (Movie movie : movies) {
+            System.out.println(movie);
+        }
+
+        System.out.println("--- RENTS ---");
+        for (Rent rent : rents) {
+            System.out.println(rent);
+        }
     }
 }
