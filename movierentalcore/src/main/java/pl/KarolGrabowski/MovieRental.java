@@ -14,9 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jakubwrabel on 22/05/2017.
- */
 public class MovieRental {
     private List<Customer> customers;
     private List<Rent> rents;
@@ -31,6 +28,17 @@ public class MovieRental {
 
     private void readDataFromFile() {
         DataFileReader<Customer> customerDataFileReader = new DataFileReader<>(new CustomerFactory());
+
+        try {
+            this.customers = customerDataFileReader.readFromFile("customers.csv");
+        } catch (IOException e) {
+            System.err.println("Błąd podczas wczytywania klientów z pliku");
+            this.customers = new ArrayList<>();
+        }
+
+        // Inny sposób na ustawienie kolejnego nextId
+        int maxId = this.customers.stream().mapToInt(x -> x.getId()).summaryStatistics().getMax();
+        Customer.setNextId(maxId + 1);
 
         try {
             this.customers = customerDataFileReader.readFromFile("customers.csv");

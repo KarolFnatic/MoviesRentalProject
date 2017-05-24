@@ -15,11 +15,15 @@ public class Movie implements CsvObject {
         String[] split = text.split(CSV_SEPARATOR);
 
         this.id = Integer.parseInt(split[0]);
+        if (nextId < this.id + 1) {
+            nextId = this.id + 1;
+        }
+
+        this.id = Integer.parseInt(split[0]);
         this.title = split[1];
         this.genre = split[2];
         this.description = split[3];
     }
-
     public Movie(String title, String genre, String description) {
         id = nextId;
         nextId++;
@@ -27,7 +31,6 @@ public class Movie implements CsvObject {
         this.genre = genre;
         this.description = description;
     }
-
     public static void setNextId(int nextId) {
         Movie.nextId = nextId;
     }
