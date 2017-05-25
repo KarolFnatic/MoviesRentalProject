@@ -1,10 +1,13 @@
 package pl.KarolGrabowski;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MovieRentalWindow extends JFrame {
 
     private JList<Customer> customerJList;
+    private JList<Movie> movieJList;
+    private JList<Rent> rentJList;
     private MovieRental movieRental;
 
     public MovieRentalWindow(MovieRental movieRental) throws HeadlessException {
@@ -17,6 +20,12 @@ public class MovieRentalWindow extends JFrame {
 
         customerJList = new JList<>();
         add(customerJList);
+
+        movieJList = new JList<>();
+        add(movieJList);
+
+        rentJList=new JList<>();
+        add(rentJList);
 
         showCustomers();
     }
@@ -44,6 +53,39 @@ public class MovieRentalWindow extends JFrame {
 
         // ustawienie tablicy klientów jako danych, które ma wyświetlać customerJList - Swingowa lista
         customerJList.setListData(customersArray);
-
     }
+    public void showMovies() {
+        // wyciągnięcie listy filmów z wypożyczalni
+        java.util.List<Movie> movieList = movieRental.getMovies();
+
+        // ZAMIANA LISTY FILMÓW NA TALBLICĘ FILMÓW
+        Movie[] moviesArray = new Movie[][movieList.size()];
+        for (int i = 0; i < moviesArray.length; i++) {
+            moviesArray[i] = movieList.get(i);
+        }
+
+        // ZAMIANA LISTY KLIENTÓW NA TALBLICĘ KLIENTÓW - 2 sposób
+        Customer[] customersArray2 = movieList.toArray(new Customer[movieList.size()]);
+
+        // ustawienie tablicy klientów jako danych, które ma wyświetlać movieJList - Swingowa lista
+        movieJList.setListData(moviesArray);
+    }
+    public void showRent() {
+        // wyciągnięcie listy filmów z wypożyczalni
+        java.util.List<Rent> rentList = movieRental.getRents();
+
+        // ZAMIANA LISTY FILMÓW NA TALBLICĘ FILMÓW
+        Rent[] rentsArray = new Rent[rentList.size()];
+        for (int i = 0; i < rentsArray.length; i++) {
+            rentsArray[i] = rentList.get(i);
+        }
+
+        // ZAMIANA LISTY KLIENTÓW NA TALBLICĘ KLIENTÓW - 2 sposób
+        Customer[] customersArray2 = rentList.toArray(new Customer[rentList.size()]);
+
+        // ustawienie tablicy klientów jako danych, które ma wyświetlać movieJList - Swingowa lista
+        rentJList.setListData(rentsArray);
+    }
+
+
 }
