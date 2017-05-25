@@ -13,15 +13,18 @@ import java.util.Date;
 public class AddMovieWindow extends JFrame {
     private MovieRental movieRental;
     private MovieRentalWindow movieRentalWindow;
+    private Movie movieToEdit;
 
-    public AddMovieWindow(MovieRental movieRental, MovieRentalWindow movieRentalWindow) throws HeadlessException {
+    public AddMovieWindow(MovieRental movieRental, MovieRentalWindow movieRentalWindow, Movie movieToEdit) throws HeadlessException {
         this.movieRental = movieRental;
         this.movieRentalWindow = movieRentalWindow;
+        this.movieToEdit = movieToEdit;
 
         setSize(600, 400);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
+        setTitle("Dodaj/edytuj film");
 
         JLabel lblMovieID = new JLabel("ID filmu");
         add(lblMovieID);
@@ -51,8 +54,15 @@ public class AddMovieWindow extends JFrame {
         txtMovieDescription.setPreferredSize(new Dimension(200, 50));
         add(txtMovieDescription);
 
-        JButton button = new JButton("Dodaj Film");
+        JButton button = new JButton("Dodaj/Edytuj Film");
         add(button);
+
+        if (movieToEdit != null) {
+            txtMovieID.setText(String.valueOf(movieToEdit.getId()));
+            txtMovieTitle.setText(movieToEdit.getTitle());
+            txtMovieGenre.setText(movieToEdit.getGenre());
+            txtMovieDescription.setText(movieToEdit.getDescription());
+        }
 
         button.addActionListener(new AbstractAction() {
             @Override
@@ -62,18 +72,27 @@ public class AddMovieWindow extends JFrame {
                 String movieGenre = txtMovieGenre.getText();
                 String movieDescription = txtMovieDescription.getText();
 
-                Movie movie = new Movie(movieTitle, movieGenre, movieDescription);
+                if (movieToEdit == null){
+                    Movie movie = new Movie(movieTitle, movieGenre, movieDescription);
 
-                try {
-                    movieRental.addMovie(movie);
-                    movieRentalWindow.showMovies();
+                    try {
+                        movieRental.addMovie(movie);
+                        movieRentalWindow.showMovies();
 
-                    JOptionPane.showMessageDialog(button, "Udało się dodać film!");
-                } catch (NullMovieException e1) {
-                    e1.printStackTrace();
-                } catch (MovieAlreadyExistsException e1) {
-                    e1.printStackTrace();
+                        JOptionPane.showMessageDialog(button, "Udało się dodać film!");
+                    } catch (NullMovieException e1) {
+                        e1.printStackTrace();
+                    } catch (MovieAlreadyExistsException e1) {
+                        e1.printStackTrace();
+                    }
+                }else{
+                    movieToEdit.setTitle(movieTitle);
+                    movieToEdit.setGenre(movieGenre);
+                    movieToEdit.setDescription(movieDescription);
+                    JOptionPane.showMessageDialog(button,"Udało się edytowac film!");
                 }
+
+
                 // Zamknięcie okna
                 setVisible(false);
                 dispose();

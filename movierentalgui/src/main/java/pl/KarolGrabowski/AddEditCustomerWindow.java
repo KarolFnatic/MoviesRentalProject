@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 
+
 public class AddEditCustomerWindow extends JFrame {
     private MovieRental movieRental;
     private MovieRentalWindow movieRentalWindow;
@@ -50,7 +51,7 @@ public class AddEditCustomerWindow extends JFrame {
         txtCity.setPreferredSize(new Dimension(200, 50));
         add(txtCity);
 
-        JButton button = new JButton("Dodaj");
+        JButton button = new JButton("Dodaj/Edytuj");
         add(button);
 
         if (customerToEdit != null) {
@@ -68,15 +69,24 @@ public class AddEditCustomerWindow extends JFrame {
                 String pesel = txtPesel.getText();
                 String city = txtCity.getText();
 
-                Customer customer = new Customer(pesel, firstName, lastName, city, new Date());
-                try {
-                    movieRental.addCustomer(customer);
-                    movieRentalWindow.showCustomers();
+                if (customerToEdit ==null){
+                    Customer customer = new Customer(pesel, firstName, lastName, city, new Date());
+                    try {
+                        movieRental.addCustomer(customer);
+                        movieRentalWindow.showCustomers();
 
-                    JOptionPane.showMessageDialog(button, "Udało się stworzyć klienta!");
-                } catch (NullCustomerException e1) {
-                    e1.printStackTrace();
+                        JOptionPane.showMessageDialog(button, "Udało się stworzyć klienta!");
+                    } catch (NullCustomerException e1) {
+                        e1.printStackTrace();
+                    }
+                }else{
+                    customerToEdit.setCity(city);
+                    customerToEdit.setFirstName(firstName);
+                    customerToEdit.setLastName(lastName);
+                    customerToEdit.setPesel(pesel);
+                    JOptionPane.showMessageDialog(button,"Udało się edytowac dane klienta!");
                 }
+
 
                 // Zamknięcie okna
                 setVisible(false);

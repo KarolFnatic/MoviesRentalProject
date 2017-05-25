@@ -52,7 +52,7 @@ public class MovieRentalWindow extends JFrame {
         add(btnAddMovie);
 
         JButton btneditMovie = new JButton("Edytuj film");
-        add(btnEditCustomer);
+        add(btneditMovie);
 
         MovieRentalWindow movieRentalWindow = this;
 
@@ -66,7 +66,7 @@ public class MovieRentalWindow extends JFrame {
         btnAddMovie.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddMovieWindow(movieRental,movieRentalWindow);
+                new AddMovieWindow(movieRental,movieRentalWindow, null);
             }
         });
 
@@ -82,10 +82,25 @@ public class MovieRentalWindow extends JFrame {
                 }
             }
         });
+        btneditMovie.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Movie selectedMovie = movieJList.getSelectedValue();
+
+                if (selectedMovie ==null){
+                    JOptionPane.showMessageDialog(btnAddMovie, "Nie wybrano filmu!");
+                }else{
+                    new AddMovieWindow(movieRental,movieRentalWindow,selectedMovie);
+                }
+            }
+        });
+
+
 
         showCustomers();
         showMovies();
         showRents();
+        repaint();
     }
 
     /***
