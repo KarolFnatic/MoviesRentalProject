@@ -7,12 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 public class DataFileWriter {
-    public static void writeObjectToFile(String fileName, List<CsvObject> dataList) {
+    public void writeObjectToFile(String fileName, List<CsvObject> dataList) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
 
             for (CsvObject csvObject : dataList) {
-                fileWriter.write(CsvObject.toCSVString() + System.lineSeparator());
+                fileWriter.write(csvObject.toCSVString() + System.lineSeparator());
             }
             fileWriter.flush();
             fileWriter.close();

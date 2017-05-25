@@ -13,7 +13,10 @@ public class Rent implements CsvObject {
     private int movieId;
     private Date date;
 
-    // "customerId,movieId,date(2015-10-11)"
+    /***
+     * Konstruktor przyjmujący napis (Stringa) w formacie "0,0,2017-05-24" tj. "customerId,movieId,date"
+     * Tworzy na podstawie tego Stringa obiekt klasy Rent o takich samych danych
+     */
     public Rent(String text) throws ParseException {
         String[] split = text.split(CSV_SEPARATOR);
 
@@ -25,6 +28,18 @@ public class Rent implements CsvObject {
         this.date = simpleDateFormat.parse(dateString);
     }
 
+    /***
+     * Konstruktor przyjmujący customerId i movieId, tworzy obiekt klasy Rent o takich wartościach
+     */
+    public Rent(int customerId, int movieId) {
+        this.customerId = customerId;
+        this.movieId = movieId;
+        this.date = new Date();
+    }
+
+    /***
+     * Metoda do zamiany wypożyczenia na napis (String) w formacie "0,0,2017-05-24" tj. "customerId,movieId,date"
+     */
     public String toCSVString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(customerId);
@@ -39,10 +54,9 @@ public class Rent implements CsvObject {
         return stringBuilder.toString();
     }
 
-    public Rent(int customerId, int movieId) {
-        this.customerId = customerId;
-        this.movieId = movieId;
-        this.date = new Date();
+    @Override
+    public String toString() {
+        return "customerId: " + customerId + ", movieId: " + movieId;
     }
 
     public int getCustomerId() {

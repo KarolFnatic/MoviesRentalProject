@@ -1,9 +1,11 @@
 package pl.KarolGrabowski;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Created by jakubwrabel on 19/05/2017.
+ */
 public class Customer implements CsvObject {
     public static final String CSV_SEPARATOR = ",";
     public static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -36,7 +38,6 @@ public class Customer implements CsvObject {
             nextId = this.id + 1;
         }
 
-        this.id = Integer.parseInt(split[0]);
         this.pesel = split[1];
         this.firstName = split[2];
         this.lastName = split[3];
@@ -47,6 +48,9 @@ public class Customer implements CsvObject {
         this.date = simpleDateFormat.parse(dateString);
     }
 
+    public static void setNextId(int nextId) {
+        Customer.nextId = nextId;
+    }
 
     public String toCSVString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -70,14 +74,7 @@ public class Customer implements CsvObject {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", pesel='" + pesel + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", city='" + city + '\'' +
-                ", date=" + date +
-                '}';
+        return id + ": " + lastName + ", " + firstName + ", " + pesel + ", " + city;
     }
 
     public Date getDate() {
