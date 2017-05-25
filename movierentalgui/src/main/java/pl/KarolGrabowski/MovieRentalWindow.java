@@ -2,6 +2,7 @@ package pl.KarolGrabowski;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by jakubwrabel on 24/05/2017.
@@ -27,15 +28,60 @@ public class MovieRentalWindow extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
+        setTitle("Wypożyczalnia filmów");
 
         customerJList = new JList<>();
+        customerJList.setPreferredSize(new Dimension(300, 200));
         add(customerJList);
 
         movieJList = new JList<>();
+        movieJList.setPreferredSize(new Dimension(300, 200));
         add(movieJList);
 
         rentJList = new JList<>();
+        rentJList.setPreferredSize(new Dimension(300, 200));
         add(rentJList);
+
+        JButton btnAddCustomer = new JButton("Dodaj klienta");
+        add(btnAddCustomer);
+
+        JButton btnEditCustomer = new JButton("Edytuj klienta");
+        add(btnEditCustomer);
+
+        JButton btnAddMovie = new JButton("Dodaj film");
+        add(btnAddMovie);
+
+        JButton btneditMovie = new JButton("Edytuj film");
+        add(btnEditCustomer);
+
+        MovieRentalWindow movieRentalWindow = this;
+
+        btnAddCustomer.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddEditCustomerWindow(movieRental, movieRentalWindow, null);
+            }
+        });
+
+        btnAddMovie.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddMovieWindow(movieRental,movieRentalWindow);
+            }
+        });
+
+        btnEditCustomer.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Customer selectedCustomer = customerJList.getSelectedValue();
+
+                if (selectedCustomer == null) {
+                    JOptionPane.showMessageDialog(btnAddCustomer, "Nie wybrano klienta!");
+                } else {
+                    new AddEditCustomerWindow(movieRental, movieRentalWindow, selectedCustomer);
+                }
+            }
+        });
 
         showCustomers();
         showMovies();

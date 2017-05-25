@@ -1,5 +1,4 @@
 package pl.KarolGrabowski;
-
 import pl.KarolGrabowski.Exceptions.NullCustomerException;
 
 import javax.swing.*;
@@ -7,16 +6,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 
-public class AddCustomerWindow extends JFrame {
+public class AddEditCustomerWindow extends JFrame {
     private MovieRental movieRental;
+    private MovieRentalWindow movieRentalWindow;
+    private Customer customerToEdit;
 
-    public AddCustomerWindow(MovieRental movieRental) throws HeadlessException {
+    public AddEditCustomerWindow(MovieRental movieRental, MovieRentalWindow movieRentalWindow, Customer customerToEdit) throws HeadlessException {
         this.movieRental = movieRental;
+        this.movieRentalWindow = movieRentalWindow;
+        this.customerToEdit = customerToEdit;
 
         setSize(600, 400);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
+        setTitle("Dodaj/edytuj klienta");
 
         JLabel lblFirstName = new JLabel("Imię");
         add(lblFirstName);
@@ -49,8 +53,12 @@ public class AddCustomerWindow extends JFrame {
         JButton button = new JButton("Dodaj");
         add(button);
 
-
-
+        if (customerToEdit != null) {
+            txtCity.setText(customerToEdit.getCity());
+            txtFirstName.setText(customerToEdit.getFirstName());
+            txtLastName.setText(customerToEdit.getLastName());
+            txtPesel.setText(customerToEdit.getPesel());
+        }
 
         button.addActionListener(new AbstractAction() {
             @Override
@@ -63,6 +71,8 @@ public class AddCustomerWindow extends JFrame {
                 Customer customer = new Customer(pesel, firstName, lastName, city, new Date());
                 try {
                     movieRental.addCustomer(customer);
+                    movieRentalWindow.showCustomers();
+
                     JOptionPane.showMessageDialog(button, "Udało się stworzyć klienta!");
                 } catch (NullCustomerException e1) {
                     e1.printStackTrace();
@@ -78,8 +88,4 @@ public class AddCustomerWindow extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        MovieRental movieRental = new MovieRental();
-        new AddCustomerWindow(movieRental);
-    }
 }
